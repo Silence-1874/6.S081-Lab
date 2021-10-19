@@ -657,3 +657,17 @@ procdump(void)
     printf("\n");
   }
 }
+
+uint64
+proc_used()
+{
+    uint64 cnt = 0;
+
+    for(int i = 0; i < NPROC; i++) {
+        if(proc[i].state != UNUSED) {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+   

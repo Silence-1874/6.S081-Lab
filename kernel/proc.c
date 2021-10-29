@@ -674,3 +674,30 @@ procdump(void)
     printf("\n");
   }
 }
+
+int
+pgaccess(void *base, int len, void *mask)
+{
+  int ret;
+  struct proc *p = myproc();
+  if(p == 0){
+      return -1;
+  }
+
+  pagetable_t pagetable = p->pagetable;
+  int m = 0;
+  for(int i = 0; i < len; i++){
+    pte_t *pte;
+    pte = walk(pagetable, ((uint64)base) + (uint64)PGSIZE * i, 0); 
+    if(pte != 0 && (*pte & PTE_A)){
+      m = m | (1 << i);
+      *pte ^= PTE_A;
+    }
+  }
+
+ if((ret = copyout(pagetable, (uint64)mask, (char*)&m, sizeof(int))) < 0){
+   return -1;
+ }
+ return ret;
+}
+

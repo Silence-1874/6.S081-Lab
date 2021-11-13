@@ -111,10 +111,15 @@ sys_sigalarm(void)
 
   myproc()->interval = interval;   
   myproc()->handler = (void (*)())handler;   
+  myproc()->is_signaled = 1;
   return 0;
 }
 
 uint64
 sys_sigreturn(void){
+  struct proc *p = myproc();
+
+  p->flag = 0;
+  *p->trapframe = p->save;
   return 0;
 }

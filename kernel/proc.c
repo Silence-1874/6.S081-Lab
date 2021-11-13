@@ -144,6 +144,7 @@ found:
   p->interval = 0;
   p->passed_ticks = 0;
   p->handler = 0;
+  p->flag = 0;
 
   return p;
 }

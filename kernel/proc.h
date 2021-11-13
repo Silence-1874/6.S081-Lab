@@ -110,4 +110,7 @@ struct proc {
   int interval;
   int passed_ticks;
   void (*handler)();
+  int flag;
+  struct trapframe save;
+  int is_signaled;
 };

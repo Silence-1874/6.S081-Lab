@@ -1,0 +1,5 @@
+
+xv6 kernel is booting
+
+harpanic: bget: no buffers
+qemu-system-riscv64: terminating on signal 15 from pid 37819 (make)
